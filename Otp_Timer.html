@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OTP with Resend Timer</title>
+</head>
+<body style="font-family: Arial, sans-serif; text-align: center; padding-top: 100px; background-color: #f4f4f4;">
+
+  <h2 style="margin-bottom: 20px;">Enter OTP</h2>
+
+  <input 
+    type="text" 
+    id="otpBox" 
+    placeholder="Enter OTP" 
+    maxlength="6"
+    style="padding: 10px; font-size: 16px; width: 200px; border: 1px solid #ccc; border-radius: 5px; text-align: center;"
+  ><br><br>
+
+  <button 
+    id="btn1" 
+    onclick="startCountdown()" 
+    style="padding: 10px 20px; font-size: 16px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;"
+  >
+    Resend OTP
+  </button>
+
+  <p id="p1" style="font-size: 18px; margin-top: 20px; color: #333;"></p>
+
+  <script>
+    let countdown = 30;
+    let timer;
+
+    function startCountdown() {
+      const button = document.getElementById('btn1');
+      const display = document.getElementById('p1');
+
+      button.disabled = true;
+      button.style.backgroundColor = '#aaa';
+      button.style.cursor = 'not-allowed';
+
+      display.innerText = `00:${countdown}`;
+
+      timer = setInterval(() => {
+        countdown--;
+        display.innerText = `00:${countdown < 10 ? '0' + countdown : countdown}`;
+
+        if (countdown === 0) {
+          clearInterval(timer);
+          button.disabled = false;
+          button.style.backgroundColor = '#007bff';
+          button.style.cursor = 'pointer';
+          display.innerText = '';
+          countdown = 30;
+        }
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
